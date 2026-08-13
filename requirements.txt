@@ -1,0 +1,9 @@
+numpy==1.26.4
+scipy==1.17.1
+PyQt5==5.15.11
+pyvista==0.48.4
+pyvistaqt==0.11.4
+SpeechRecognition==3.16.1
+opencv-contrib-python==4.11.0.86
+mediapipe==0.10.21
+PyAudio==0.2.14

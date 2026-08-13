@@ -1,0 +1,34 @@
+RoboSim Üretim Raporu
+============================
+
+Tarih/saat: 2026-06-14 14:42:04
+Robot durumu: ÇALIŞIYOR
+Aktif state: LIFT
+Toplam ürün: 185
+Küçük ürün: 89
+Büyük ürün: 95
+Sağlam ürün: 184
+Hatalı ürün: 1
+Kalite oranı: 99.5%
+Son çevrim süresi: 9.40 sn
+Ortalama çevrim süresi: 9.12 sn
+Tahmini saatlik üretim: 395 adet/saat
+Son olay: Vakum kavrama aktif
+
+Cycle Time Listesi
+--------------------
+1: 9.01 sn
+2: 13.75 sn
+3: 8.11 sn
+4: 8.27 sn
+5: 8.33 sn
+6: 8.22 sn
+7: 8.78 sn
+8: 8.41 sn
+9: 8.48 sn
+10: 8.25 sn
+11: 8.86 sn
+12: 9.98 sn
+13: 9.60 sn
+14: 9.40 sn
+15: 9.40 sn
