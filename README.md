@@ -1,113 +1,83 @@
-RoboSim SmartCell
-RoboSim SmartCell is a 6-DOF industrial robot simulation developed using PyQt5 and PyVista. This project integrates robot kinematics, a teach pendant approach, factory automation, quality control, a production dashboard, a virtual PLC I/O panel, and ABB RAPID code generation into a unified desktop HMI.
+# RoboSim SmartCell
 
-🚀 Features
-• 3D simulation with a 6-axis ABB IRB1600 robot model
+**RoboSim SmartCell** is a desktop-based industrial robot simulation and virtual manufacturing cell developed with Python, PyQt5, and PyVista.
 
-• Forward/Inverse Kinematics (FK/IK) based manual and target coordinate control
+The system combines **6-DOF robot kinematics, teach pendant control, factory automation, quality control, production monitoring, virtual PLC I/O, computer vision, and ABB RAPID-style code generation** within a unified HMI environment.
 
-• World jogging and joint-based manual control
+The project is designed as a software-based **Smart Manufacturing Cell / Digital Twin prototype** for studying industrial robotics, automation, and human-machine interaction.
 
-• Waypoint recording, playback, and trajectory tracking
-
-• ABB RAPID-style code generation
-
-• Voice command support
-
-• Optional hand tracking via a separate camera worker architecture
-
-• Pick-and-place factory automation simulation
-
-• Quality control and defective product rejection sorting
-
-• SmartCell Dashboard for production analytics
-
-• Virtual PLC I/O panel
-
-• TXT/CSV production report exporting
-
-🛠️ Installation
-Navigate to the project directory in a Python 3.12 environment:
-
-```
-
-cd C:\RoboSim\robotik
-
-pip install -r requirements.txt
-
-```
-
-Note: PyAudio installation may require additional compilers on some Windows systems. If voice commands are not needed, the main simulation will still run without it.
-
-💻 Usage
-```
-
-cd C:\RoboSim\robotik
-
-python robot_sim.py
-
-```
-
-Alternatively, using a specific Python interpreter:
-
-```
-
-& "C:/Users/Kerem Öge/AppData/Local/Programs/Python/Python312/python.exe" robot_sim.py
-
-```
-
-⚙️ Tech Stack
-• Language: Python
-
-• GUI: PyQt5
-
-• 3D Visualization: PyVista / VTK, pyvistaqt
-
-• Mathematics & Kinematics: NumPy, SciPy
-
-• Computer Vision: OpenCV, MediaPipe
-
-• Audio Processing: SpeechRecognition
-
-🏗️ System Architecture
-The main application runs within `robot_sim.py`. PyQt5 handles the HMI, while PyVista manages the 3D robot scene. Robot kinematics are calculated using NumPy and SciPy. To prevent DLL conflicts and camera freezing on Windows, the camera and MediaPipe hand tracking operations are isolated from the main GUI thread and executed via `hand_tracker_worker.py`.
-
-📁 File Structure
-```
-
-RoboSim/
-
-  ├── robot_sim.py
-
-  ├── hand_tracker_worker.py
-
-  ├── requirements.txt
-
-  ├── README.md
-
-  ├── USER_MANUAL.md
-
-  ├── RAPOR_NOTLARI.md
-
-  ├── reports/
-
-  ├── ABB_IRB1600_145-*.stl
-
-  └── robot_icon.png
-
-```
-
-Important: STL files must remain in the same directory as `robot_sim.py` to ensure proper loading of the robot model.
-
-📌 Known Issues & Notes
-• Hand tracking is optional; the main simulation will launch even if the camera backend fails to initialize.
-
-• MediaPipe/OpenCV are executed via a worker process and are not imported into the main GUI process.
-
-• Windows permissions for microphone and camera access must be enabled.
-
-• Production reports are automatically saved in the `reports/` directory with timestamped filenames.
+![RoboSim SmartCell HMI](robosim_HMI_screenshot.png)
 
 ---
 
-Developer: Kerem Öge
+## Key Features
+
+### 🤖 Robot Simulation & Control
+*   3D simulation of a 6-axis ABB IRB 1600 industrial robot
+*   Forward Kinematics (FK) & Inverse Kinematics (IK)
+*   Target coordinate-based robot control & World-coordinate jogging
+*   Joint-based manual control with joint limit handling
+*   Waypoint recording, playback, and trajectory tracking
+
+### 🏭 Smart Manufacturing Cell
+*   Pick-and-place factory automation simulation
+*   Automated product handling & Quality control inspection
+*   Defective product detection and rejection
+*   Real-time production statistics and dashboard monitoring
+
+### 🎮 Teach Pendant & HMI
+*   Integrated teach pendant interface for manual robot jogging
+*   Coordinate-based positioning and waypoint management
+*   Virtual PLC I/O panel
+*   Industrial-style HMI architecture
+
+### 💻 Robot Programming
+*   ABB RAPID-style program generation
+*   Automatic generation of robot movement commands
+*   Waypoint-to-code workflow
+
+### 👁️ Computer Vision & Interaction
+*   Optional camera-based hand tracking using MediaPipe
+*   Separate worker architecture for camera processing to prevent GUI blocking
+*   Voice command support
+
+### 📊 Production & Reporting
+*   Production and quality control statistics
+*   Defective product tracking
+*   Timestamped TXT/CSV production report generation
+
+---
+
+## System Architecture
+
+The application is built around a modular desktop HMI architecture.
+
+```text
+                    ┌─────────────────────────┐
+                    │     RoboSim SmartCell   │
+                    │       Desktop HMI       │
+                    └────────────┬────────────┘
+                                 │
+              ┌──────────────────┼──────────────────┐
+              │                  │                  │
+              ▼                  ▼                  ▼
+       Robot Control        SmartCell         User Interaction
+              │              Automation              │
+              │                  │           ┌───────┴───────┐
+              ▼                  ▼           │               │
+        FK / IK Engine      Production       Voice        Hand Tracking
+              │              Control         Commands       │
+              ▼                  │                           │
+       PyVista 3D Scene          ▼                           ▼
+                         Quality Control              Worker Process
+                              │
+                              ▼
+                       Virtual PLC I/O
+                              │
+                              ▼
+                     Production Reports
+The main application runs inside robot_sim.py.PyQt5 provides the desktop HMI, while PyVista / VTK manages the 3D robot environment.Robot kinematics and numerical calculations are handled using NumPy and SciPy.Camera processing and hand tracking are isolated from the main GUI through hand_tracker_worker.py to prevent camera-related blocking and Windows DLL conflicts.Technical WorkflowsRobot KinematicsRoboSim SmartCell provides both forward and inverse kinematics functionality for the simulated 6-DOF robot.Forward Kinematics: Joint configurations are converted into the corresponding end-effector pose.Inverse Kinematics: Given a desired Cartesian target, the system calculates a suitable joint configuration considering kinematic constraints.Factory AutomationThe SmartCell environment simulates a simplified industrial production workflow:Product Input ➔ Robot Pick ➔ Inspection ➔ Pass (Output) or Fail (Reject)Virtual PLC I/OA virtual PLC I/O interface is integrated into the HMI to simulate industrial automation signals. This provides a software-based environment for experimenting with digital inputs/outputs, sensor states, and production signals without requiring physical hardware.ABB RAPID-Style Code GenerationRoboSim converts recorded robot movements and waypoints into ABB RAPID-style program structures, creating a bridge between Simulation ➔ Robot Teaching ➔ Program Generation.Technology StackComponentTechnologyProgramming LanguagePython 3.12GUI / HMIPyQt53D VisualizationPyVista / VTK, pyvistaqtNumerical ComputingNumPy, SciPyComputer VisionOpenCV, MediaPipeVoice CommandsSpeechRecognitionRobot ModelABB IRB 1600Installation & UsageRequirements: Python 3.12, Windows, Camera (optional), Microphone (optional).Clone the repository and navigate to the project directory:Bashgit clone [https://github.com/kerem-oge/RoboSim.git](https://github.com/kerem-oge/RoboSim.git)
+cd RoboSim
+Install the required dependencies:Bashpip install -r requirements.txt
+Note: PyAudio may require additional build tools on Windows. Voice commands are optional.Run the main application:Bashpython robot_sim.py
+Important: The ABB IRB 1600 STL files (ABB_IRB1600_145-*.stl) must remain in the same directory as robot_sim.py.Future DevelopmentPotential future extensions include:Real PLC communication & OPC UA integrationROS / ROS 2 integrationReal robot communication & Digital twin synchronizationAdvanced collision detection and conveyor trackingMulti-robot cell simulationDocumentation & AuthorFor detailed installation, operation, and feature instructions, see the USER_MANUAL.md.Author: Kerem ÖgeMechatronics Engineering StudentRobotics · Control Systems · Industrial Automation · Digital Manufacturing
